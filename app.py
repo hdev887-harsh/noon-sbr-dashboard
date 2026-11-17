@@ -149,13 +149,13 @@ if df.empty:
 
 orders_per_cust = df.groupby("customer_id").size()
 repeat_rate = (orders_per_cust > 1).mean()
-k = st.columns(6)
-k[0].metric("Orders", f"{len(df):,}")
-k[1].metric("Net revenue (AED)", f"{df.net_revenue_aed.sum()/1e6:,.2f}M")
-k[2].metric("Avg order value", f"AED {df.net_revenue_aed.mean():,.0f}")
-k[3].metric("Repeat-customer rate", f"{repeat_rate:.0%}")
-k[4].metric("On-time delivery", f"{1 - df.late_delivery.mean():.0%}")
-k[5].metric("Return rate", f"{df.returned.mean():.1%}")
+k = st.columns(3) + st.columns(3)
+k[0].metric("Orders", f"{len(df):,}", border=True)
+k[1].metric("Net revenue (AED)", f"{df.net_revenue_aed.sum()/1e6:,.2f}M", border=True)
+k[2].metric("Avg order value (AED)", f"{df.net_revenue_aed.mean():,.0f}", border=True)
+k[3].metric("Repeat-customer rate", f"{repeat_rate:.0%}", border=True)
+k[4].metric("On-time delivery", f"{1 - df.late_delivery.mean():.0%}", border=True)
+k[5].metric("Return rate", f"{df.returned.mean():.1%}", border=True)
 
 tabs = st.tabs([
     "📈 Overview",
